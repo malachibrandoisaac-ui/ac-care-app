@@ -5,11 +5,10 @@ import { supabase } from "../lib/supabase";
 export default function BookingPage() {
   // Daftar Layanan dan Harga
   const daftarLayanan = [
-    { nama: "Cuci AC (0.5 - 1 PK)", harga: 75000 },
-    { nama: "Cuci AC (1.5 - 2 PK)", harga: 100000 },
-    { nama: "Tambah Freon R32/R410", harga: 150000 },
-    { nama: "Bongkar Pasang AC", harga: 350000 },
-    { nama: "Perbaikan Modul", harga: 250000 },
+    { nama: "Cuci AC", harga: 150000 },
+    { nama: "Tambah Freon", harga: 250000 },
+    { nama: "Bongkar Pasang AC", harga: 250000 },
+    { nama: "Periksa AC", harga: 100000 },
     { nama: "Lainnya", harga: 0 }, // Harga 0 berarti nanti dicek di lokasi
   ];
 
