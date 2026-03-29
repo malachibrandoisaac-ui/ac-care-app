@@ -62,7 +62,7 @@ export default function BookingPage() {
         `*Tanggal:* ${formData.tanggal}%0A%0A` +
         `Mohon segera dikonfirmasi ya!`;
 
-      const nomorAdmin = "628123456789"; // Ganti dengan nomor WA Anda
+      const nomorAdmin = "6281953517111"; // Ganti dengan nomor WA Anda
       window.open(`https://wa.me/${nomorAdmin}?text=${pesanWA}`, "_blank");
       
       alert("Booking Berhasil! Mengalihkan ke WhatsApp...");
