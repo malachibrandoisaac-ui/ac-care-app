@@ -6,10 +6,8 @@ import Link from "next/link"; // Import Link untuk navigasi
 export default function BookingPage() {
   const daftarLayanan = [
     { nama: "Cuci AC", harga: 150000 },
-    { nama: "Tambah Freon", harga: 250000 },
     { nama: "Bongkar Pasang AC", harga: 250000 },
-    { nama: "Periksa AC", harga: 100000 },
-    { nama: "Lainnya...", harga: 0 }, 
+    { nama: "Periksa AC", harga: 0 }, 
   ];
 
   const [formData, setFormData] = useState({
