@@ -140,7 +140,7 @@ export default function BookingPage() {
         />
 
         <textarea
-          placeholder="Alamat Lengkap (contoh: Lorong Tubir, perempatan pertama belok kanan ruma ke 2 sebelah kanan"
+          placeholder="Alamat Lengkap"
           required
           className="w-full p-3 border rounded-lg outline-none focus:ring-2 focus:ring-blue-500"
           onChange={(e) => setFormData({ ...formData, alamat: e.target.value })}
