@@ -1,9 +1,9 @@
 "use client";
 import { useState } from "react";
 import { supabase } from "../lib/supabase";
+import Link from "next/link"; // Import Link untuk navigasi
 
 export default function BookingPage() {
-  // Daftar Layanan dan Harga
   const daftarLayanan = [
     { nama: "Cuci AC", harga: 150000 },
     { nama: "Tambah Freon", harga: 250000 },
@@ -37,7 +37,6 @@ export default function BookingPage() {
     e.preventDefault();
     setLoading(true);
 
-    // 1. Simpan ke Supabase
     const { error } = await supabase.from("Service AC").insert([
       {
         Nama: formData.nama,
@@ -53,7 +52,6 @@ export default function BookingPage() {
     if (error) {
       alert("Gagal kirim data: " + error.message);
     } else {
-      // 2. Format Pesan WhatsApp
       const pesanWA = `Halo Admin AC-Care,%0A%0A` +
         `Ada Booking Baru!%0A` +
         `*Nama:* ${formData.nama}%0A` +
@@ -64,8 +62,7 @@ export default function BookingPage() {
         `*Tanggal:* ${formData.tanggal}%0A%0A` +
         `Mohon segera dikonfirmasi ya!`;
 
-      // --- GANTI NOMOR DI BAWAH INI ---
-      const nomorAdmin = "6281953517111"; // <--- Masukkan nomor WA Anda di sini
+      const nomorAdmin = "628123456789"; // Ganti dengan nomor WA Anda
       window.open(`https://wa.me/${nomorAdmin}?text=${pesanWA}`, "_blank");
       
       alert("Booking Berhasil! Mengalihkan ke WhatsApp...");
@@ -74,9 +71,23 @@ export default function BookingPage() {
   };
 
   return (
-    <main className="min-h-screen bg-white p-6 text-black flex items-center justify-center">
+    <main className="min-h-screen bg-white p-4 text-black flex flex-col items-center justify-center">
+      
+      {/* TOMBOL KE LAMAN ANTREAN (Diletakkan di atas Form) */}
+      <div className="max-w-md w-full mb-4 flex justify-end">
+        <Link 
+          href="/antrean" 
+          className="text-sm font-bold text-blue-600 hover:text-blue-800 flex items-center gap-1 transition"
+        >
+          📊 Lihat Antrean Saat Ini →
+        </Link>
+      </div>
+
       <form onSubmit={handleSubmit} className="max-w-md w-full space-y-4 bg-slate-50 p-8 rounded-2xl border shadow-sm">
-        <h1 className="text-2xl font-bold text-blue-700 text-center mb-6">Booking Service AC</h1>
+        <div className="text-center mb-6">
+          <h1 className="text-2xl font-bold text-blue-700">Booking Service AC</h1>
+          <p className="text-xs text-slate-500 mt-1">Isi data di bawah untuk menjadwalkan servis</p>
+        </div>
 
         <input
           type="text"
@@ -122,7 +133,7 @@ export default function BookingPage() {
         </div>
 
         <textarea
-          placeholder="Jelaskan keluhan AC (Contoh: AC Berisik, Tidak Dingin, atau Menetes air)"
+          placeholder="Jelaskan keluhan AC (Contoh: Tidak Dingin, Bocor, dll)"
           rows={3}
           className="w-full p-3 border rounded-lg outline-none focus:ring-2 focus:ring-blue-500"
           onChange={(e) => setFormData({ ...formData, keluhan: e.target.value })}
@@ -142,6 +153,10 @@ export default function BookingPage() {
         >
           {loading ? "Memproses..." : "Booking Sekarang via WA"}
         </button>
+
+        <p className="text-[10px] text-center text-slate-400 mt-4 uppercase tracking-widest">
+          Fast Response • Bergaransi • Profesional
+        </p>
       </form>
     </main>
   );
