@@ -9,7 +9,7 @@ export default function BookingPage() {
     { nama: "Tambah Freon", harga: 250000 },
     { nama: "Bongkar Pasang AC", harga: 250000 },
     { nama: "Periksa AC", harga: 100000 },
-    { nama: "Lainnya...", harga: 0 }, // Harga 0 berarti nanti dicek di lokasi
+    { nama: "Lainnya...", harga: 0 }, 
   ];
 
   const [formData, setFormData] = useState({
@@ -24,7 +24,6 @@ export default function BookingPage() {
 
   const [loading, setLoading] = useState(false);
 
-  // Fungsi saat pilihan layanan berubah
   const handleLayananChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selected = daftarLayanan.find((l) => l.nama === e.target.value);
     setFormData({
@@ -65,7 +64,10 @@ export default function BookingPage() {
         `*Tanggal:* ${formData.tanggal}%0A%0A` +
         `Mohon segera dikonfirmasi ya!`;
 
-      window.open(`https://wa.me/081953517111?text=${pesanWA}`, "_blank");
+      // --- GANTI NOMOR DI BAWAH INI ---
+      const nomorAdmin = "6281953517111"; // <--- Masukkan nomor WA Anda di sini
+      window.open(`https://wa.me/${nomorAdmin}?text=${pesanWA}`, "_blank");
+      
       alert("Booking Berhasil! Mengalihkan ke WhatsApp...");
     }
     setLoading(false);
@@ -100,7 +102,6 @@ export default function BookingPage() {
           />
         </div>
 
-        {/* Pilihan Layanan */}
         <div>
           <label className="text-xs font-bold text-slate-500 ml-1">PILIH LAYANAN</label>
           <select
@@ -120,7 +121,6 @@ export default function BookingPage() {
           )}
         </div>
 
-        {/* Kolom Keluhan */}
         <textarea
           placeholder="Jelaskan keluhan AC (Contoh: AC Berisik, Tidak Dingin, atau Menetes air)"
           rows={3}
