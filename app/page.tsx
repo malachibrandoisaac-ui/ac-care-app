@@ -69,19 +69,23 @@ export default function BookingPage() {
   };
 
   return (
-    <main className="min-h-screen bg-white p-4 text-black flex items-center justify-center">
-      <form onSubmit={handleSubmit} className="max-w-md w-full space-y-4 bg-slate-50 p-8 rounded-2xl border shadow-sm">
+    // Background Utama diubah ke Slate-950 (Sangat Gelap)
+    <main className="min-h-screen bg-slate-950 p-4 text-slate-200 flex items-center justify-center">
+      
+      {/* Container Form diubah ke Slate-900 dengan Border halus */}
+      <form onSubmit={handleSubmit} className="max-w-md w-full space-y-4 bg-slate-900 p-8 rounded-2xl border border-slate-800 shadow-2xl">
+        
         <div className="text-center mb-6">
-          <h1 className="text-2xl font-bold text-blue-700">AC Care Service</h1>
-          <p className="text-xs text-slate-500 mt-1 uppercase tracking-widest">Sejuk & Nyaman Kembali</p>
+          <h1 className="text-2xl font-bold text-blue-400">AC Care Service</h1>
+          <p className="text-[10px] text-slate-500 mt-1 uppercase tracking-[0.2em]">Sejuk & Nyaman Kembali</p>
         </div>
 
-        {/* Input Fields */}
+        {/* Input Fields: Background lebih gelap, teks putih, border menyesuaikan */}
         <input
           type="text"
           placeholder="Nama Lengkap"
           required
-          className="w-full p-3 border rounded-lg outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full p-3 bg-slate-800 border border-slate-700 rounded-lg outline-none focus:ring-2 focus:ring-blue-500 text-white placeholder-slate-500"
           onChange={(e) => setFormData({ ...formData, nama: e.target.value })}
         />
 
@@ -90,40 +94,40 @@ export default function BookingPage() {
             type="number"
             placeholder="No. WhatsApp"
             required
-            className="w-full p-3 border rounded-lg outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full p-3 bg-slate-800 border border-slate-700 rounded-lg outline-none focus:ring-2 focus:ring-blue-500 text-white placeholder-slate-500"
             onChange={(e) => setFormData({ ...formData, whatsapp: e.target.value })}
           />
           <input
             type="date"
             required
-            className="w-full p-3 border rounded-lg outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full p-3 bg-slate-800 border border-slate-700 rounded-lg outline-none focus:ring-2 focus:ring-blue-500 text-white invert-[0.9] hue-rotate-180" // Invert agar kalender terlihat di dark mode
             onChange={(e) => setFormData({ ...formData, tanggal: e.target.value })}
           />
         </div>
 
         <div>
-          <label className="text-[10px] font-bold text-slate-400 ml-1 uppercase">Pilihan Layanan</label>
+          <label className="text-[10px] font-bold text-slate-500 ml-1 uppercase">Pilihan Layanan</label>
           <select
             required
-            className="w-full p-3 border rounded-lg outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+            className="w-full p-3 bg-slate-800 border border-slate-700 rounded-lg outline-none focus:ring-2 focus:ring-blue-500 text-white"
             onChange={handleLayananChange}
           >
-            <option value="">-- Pilih Layanan --</option>
+            <option value="" className="bg-slate-900">-- Pilih Layanan --</option>
             {daftarLayanan.map((l, i) => (
-              <option key={i} value={l.nama}>
+              <option key={i} value={l.nama} className="bg-slate-900">
                 {l.nama} {l.harga > 0 ? `(Rp ${l.harga.toLocaleString()})` : ""}
               </option>
             ))}
           </select>
           {formData.harga && (
-            <p className="mt-1 ml-1 text-sm font-bold text-blue-600 italic">Estimasi: {formData.harga}</p>
+            <p className="mt-1 ml-1 text-sm font-bold text-blue-400 italic">Estimasi: {formData.harga}</p>
           )}
         </div>
 
         <textarea
           placeholder="Jelaskan keluhan AC Anda..."
           rows={2}
-          className="w-full p-3 border rounded-lg outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full p-3 bg-slate-800 border border-slate-700 rounded-lg outline-none focus:ring-2 focus:ring-blue-500 text-white placeholder-slate-500"
           onChange={(e) => setFormData({ ...formData, keluhan: e.target.value })}
         />
 
@@ -131,32 +135,30 @@ export default function BookingPage() {
           placeholder="Alamat Lengkap"
           required
           rows={2}
-          className="w-full p-3 border rounded-lg outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full p-3 bg-slate-800 border border-slate-700 rounded-lg outline-none focus:ring-2 focus:ring-blue-500 text-white placeholder-slate-500"
           onChange={(e) => setFormData({ ...formData, alamat: e.target.value })}
         />
 
-        {/* --- TOMBOL AKSI --- */}
         <div className="pt-2 space-y-3">
-          {/* Tombol Booking (Biru) */}
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white p-4 rounded-xl font-bold transition-all shadow-lg active:scale-95"
+            className="w-full bg-blue-600 hover:bg-blue-500 text-white p-4 rounded-xl font-bold transition-all shadow-lg active:scale-95"
           >
             {loading ? "Sedang Memproses..." : "Booking Sekarang via WA"}
           </button>
 
-          {/* Tombol Lihat Antrean (Hitam) */}
+          {/* Tombol Antrean: Dibuat sedikit transparan/ber-border agar estetik di tema gelap */}
           <Link 
             href="/antrean" 
-            className="block w-full bg-black hover:bg-slate-800 text-white text-center p-4 rounded-xl font-bold transition-all shadow-md active:scale-95"
+            className="block w-full bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white text-center p-4 rounded-xl font-bold transition-all active:scale-95"
           >
             Lihat Antrean Saat Ini 📊
           </Link>
         </div>
 
-        <p className="text-[10px] text-center text-slate-400 mt-4 uppercase">
-          Tukang AC Jujur & Profesional
+        <p className="text-[10px] text-center text-slate-600 mt-4 uppercase font-medium">
+          Terjangkau &bull; Fast Respon &bull; Profesional
         </p>
       </form>
     </main>
