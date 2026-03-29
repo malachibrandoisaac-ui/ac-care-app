@@ -85,8 +85,8 @@ export default function BookingPage() {
 
       <form onSubmit={handleSubmit} className="max-w-md w-full space-y-4 bg-slate-50 p-8 rounded-2xl border shadow-sm">
         <div className="text-center mb-6">
-          <h1 className="text-2xl font-bold text-blue-700">Booking Service AC</h1>
-          <p className="text-xs text-slate-500 mt-1">Isi data di bawah untuk menjadwalkan servis</p>
+          <h1 className="text-2xl font-bold text-blue-700">Booking AC Care Service</h1>
+          <p className="text-xs text-slate-500 mt-1">Isi data-data di bawah ini untuk menjadwalkan servis</p>
         </div>
 
         <input
@@ -140,7 +140,7 @@ export default function BookingPage() {
         />
 
         <textarea
-          placeholder="Alamat Lengkap"
+          placeholder="Alamat Lengkap (contoh: Lorong Tubir, perempatan pertama belok kanan ruma ke 2 sebelah kanan"
           required
           className="w-full p-3 border rounded-lg outline-none focus:ring-2 focus:ring-blue-500"
           onChange={(e) => setFormData({ ...formData, alamat: e.target.value })}
