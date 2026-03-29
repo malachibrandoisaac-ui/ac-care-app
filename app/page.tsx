@@ -72,7 +72,7 @@ export default function BookingPage() {
     <main className="min-h-screen bg-white p-4 text-black flex items-center justify-center">
       <form onSubmit={handleSubmit} className="max-w-md w-full space-y-4 bg-slate-50 p-8 rounded-2xl border shadow-sm">
         <div className="text-center mb-6">
-          <h1 className="text-2xl font-bold text-blue-700">Booking Service AC</h1>
+          <h1 className="text-2xl font-bold text-blue-700">AC Care Service</h1>
           <p className="text-xs text-slate-500 mt-1 uppercase tracking-widest">Sejuk & Nyaman Kembali</p>
         </div>
 
