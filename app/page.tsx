@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { supabase } from "../lib/supabase";
-import Link from "next/link"; // Import Link untuk navigasi
+import Link from "next/link";
 
 export default function BookingPage() {
   const daftarLayanan = [
@@ -69,24 +69,14 @@ export default function BookingPage() {
   };
 
   return (
-    <main className="min-h-screen bg-white p-4 text-black flex flex-col items-center justify-center">
-      
-      {/* TOMBOL KE LAMAN ANTREAN (Diletakkan di atas Form) */}
-      <div className="max-w-md w-full mb-4 flex justify-end">
-        <Link 
-          href="/antrean" 
-          className="text-sm font-bold text-blue-600 hover:text-blue-800 flex items-center gap-1 transition"
-        >
-          📊 Lihat Antrean Saat Ini →
-        </Link>
-      </div>
-
+    <main className="min-h-screen bg-white p-4 text-black flex items-center justify-center">
       <form onSubmit={handleSubmit} className="max-w-md w-full space-y-4 bg-slate-50 p-8 rounded-2xl border shadow-sm">
         <div className="text-center mb-6">
-          <h1 className="text-2xl font-bold text-blue-700">Booking AC Care Service</h1>
-          <p className="text-xs text-slate-500 mt-1">Isi data-data di bawah ini untuk menjadwalkan servis</p>
+          <h1 className="text-2xl font-bold text-blue-700">Booking Service AC</h1>
+          <p className="text-xs text-slate-500 mt-1 uppercase tracking-widest">Sejuk & Nyaman Kembali</p>
         </div>
 
+        {/* Input Fields */}
         <input
           type="text"
           placeholder="Nama Lengkap"
@@ -112,7 +102,7 @@ export default function BookingPage() {
         </div>
 
         <div>
-          <label className="text-xs font-bold text-slate-500 ml-1">PILIH LAYANAN</label>
+          <label className="text-[10px] font-bold text-slate-400 ml-1 uppercase">Pilihan Layanan</label>
           <select
             required
             className="w-full p-3 border rounded-lg outline-none focus:ring-2 focus:ring-blue-500 bg-white"
@@ -126,13 +116,13 @@ export default function BookingPage() {
             ))}
           </select>
           {formData.harga && (
-            <p className="mt-1 ml-1 text-sm font-bold text-blue-600 italic">Estimasi Biaya: {formData.harga}</p>
+            <p className="mt-1 ml-1 text-sm font-bold text-blue-600 italic">Estimasi: {formData.harga}</p>
           )}
         </div>
 
         <textarea
-          placeholder="Jelaskan keluhan AC (Contoh: Tidak Dingin, Bocor, dll)"
-          rows={3}
+          placeholder="Jelaskan keluhan AC Anda..."
+          rows={2}
           className="w-full p-3 border rounded-lg outline-none focus:ring-2 focus:ring-blue-500"
           onChange={(e) => setFormData({ ...formData, keluhan: e.target.value })}
         />
@@ -140,20 +130,33 @@ export default function BookingPage() {
         <textarea
           placeholder="Alamat Lengkap"
           required
+          rows={2}
           className="w-full p-3 border rounded-lg outline-none focus:ring-2 focus:ring-blue-500"
           onChange={(e) => setFormData({ ...formData, alamat: e.target.value })}
         />
 
-        <button
-          type="submit"
-          disabled={loading}
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white p-4 rounded-xl font-bold transition-all shadow-lg active:scale-95"
-        >
-          {loading ? "Memproses..." : "Booking Sekarang via WA"}
-        </button>
+        {/* --- TOMBOL AKSI --- */}
+        <div className="pt-2 space-y-3">
+          {/* Tombol Booking (Biru) */}
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white p-4 rounded-xl font-bold transition-all shadow-lg active:scale-95"
+          >
+            {loading ? "Sedang Memproses..." : "Booking Sekarang via WA"}
+          </button>
 
-        <p className="text-[10px] text-center text-slate-400 mt-4 uppercase tracking-widest">
-          Fast Response • Bergaransi • Profesional
+          {/* Tombol Lihat Antrean (Hitam) */}
+          <Link 
+            href="/antrean" 
+            className="block w-full bg-black hover:bg-slate-800 text-white text-center p-4 rounded-xl font-bold transition-all shadow-md active:scale-95"
+          >
+            Lihat Antrean Saat Ini 📊
+          </Link>
+        </div>
+
+        <p className="text-[10px] text-center text-slate-400 mt-4 uppercase">
+          Tukang AC Jujur & Profesional
         </p>
       </form>
     </main>
