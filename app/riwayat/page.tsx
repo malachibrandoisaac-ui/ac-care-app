@@ -8,7 +8,6 @@ export default function RiwayatPage() {
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
-  // 1. Fungsi Proteksi Login
   const checkUser = async () => {
     const { data: { session } } = await supabase.auth.getSession();
     if (!session) {
@@ -18,7 +17,6 @@ export default function RiwayatPage() {
     }
   };
 
-  // 2. Ambil data riwayat
   const fetchRiwayat = async () => {
     setLoading(true);
     const { data, error } = await supabase
@@ -32,7 +30,6 @@ export default function RiwayatPage() {
     setLoading(false);
   };
 
-  // 3. Fungsi Hapus Per Pekerjaan
   const handleDelete = async (nomor: number, nama: string) => {
     if (confirm(`Hapus riwayat atas nama ${nama}?`)) {
       const { error } = await supabase
@@ -45,12 +42,10 @@ export default function RiwayatPage() {
         alert("Gagal hapus: " + error.message);
       } else {
         setRiwayat(riwayat.filter((item) => item.nomor_antrean !== nomor));
-        alert("Riwayat berhasil dihapus.");
       }
     }
   };
 
-  // 4. Fungsi Hapus SEMUA Riwayat
   const handleDeleteAll = async () => {
     const kodeKeamanan = "HAPUS";
     const konfirmasi = prompt(`PERINGATAN! Anda akan menghapus SELURUH riwayat. Ketik "${kodeKeamanan}" untuk melanjutkan:`);
@@ -67,8 +62,6 @@ export default function RiwayatPage() {
         setRiwayat([]);
         alert("Seluruh riwayat telah dibersihkan.");
       }
-    } else if (konfirmasi !== null) {
-      alert("Kode salah. Penghapusan dibatalkan.");
     }
   };
 
@@ -77,63 +70,77 @@ export default function RiwayatPage() {
   }, []);
 
   return (
-    <main className="min-h-screen bg-slate-50 p-6 md:p-12 text-black">
-      <div className="max-w-5xl mx-auto">
+    <main className="min-h-screen bg-slate-950 text-slate-200 p-4 md:p-8">
+      <div className="max-w-7xl mx-auto">
+        
         {/* HEADER */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+        <div className="flex flex-col md:flex-row justify-between items-center mb-10 gap-6">
           <div>
-            <h1 className="text-3xl font-bold text-slate-800">📜 Riwayat Servis</h1>
-            <p className="text-slate-500 text-sm">Data pekerjaan yang telah selesai dikerjakan</p>
+            <h1 className="text-3xl font-black text-white tracking-tight">📜 Riwayat Servis</h1>
+            <p className="text-slate-500 text-sm mt-1">Laporan pengerjaan yang telah diselesaikan</p>
           </div>
-          <div className="flex gap-3">
+          
+          <div className="flex items-center gap-3 w-full md:w-auto">
             <button 
               onClick={handleDeleteAll}
-              className="bg-red-50 text-red-600 border border-red-200 px-4 py-2 rounded-lg text-sm font-bold hover:bg-red-600 hover:text-white transition"
+              className="flex-1 md:flex-none bg-red-950/20 text-red-500 hover:bg-red-600 hover:text-white border border-red-900/50 px-5 py-2.5 rounded-xl font-bold text-sm transition-all"
             >
-              🗑️ Bersihkan Riwayat
+              🗑️ Bersihkan Semua
             </button>
-            <a href="/dapur-admin" className="bg-white border px-4 py-2 rounded-lg text-sm font-bold hover:bg-slate-100 transition shadow-sm">
-              ← Kembali ke Admin
-            </a>
+            <button 
+              onClick={() => router.push("/dapur-admin")}
+              className="flex-1 md:flex-none bg-slate-900 hover:bg-slate-800 border border-slate-800 px-5 py-2.5 rounded-xl font-bold text-sm transition-all"
+            >
+              ← Kembali
+            </button>
           </div>
         </div>
 
-        {/* TABEL RIWAYAT */}
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+        {/* TABEL DATA */}
+        <div className="bg-slate-900 rounded-3xl border border-slate-800 shadow-2xl overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="bg-slate-800 text-white text-xs uppercase tracking-wider">
-                  <th className="p-4 font-semibold">Pelanggan</th>
-                  <th className="p-4 font-semibold">Layanan</th>
-                  <th className="p-4 font-semibold">Alamat</th>
-                  <th className="p-4 font-semibold text-center">Aksi</th>
+                <tr className="bg-slate-800/50 text-slate-500 text-[10px] uppercase tracking-[0.2em] font-bold">
+                  <th className="p-5">Pelanggan & Tanggal</th>
+                  <th className="p-5">Layanan</th>
+                  <th className="p-5">Hasil Kerja (Laporan)</th>
+                  <th className="p-5">Kontak & Alamat</th>
+                  <th className="p-5 text-center">Aksi</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-slate-800">
                 {loading ? (
-                  <tr><td colSpan={4} className="p-10 text-center text-slate-400 font-medium">Memuat riwayat...</td></tr>
+                  <tr><td colSpan={5} className="p-20 text-center text-slate-600 animate-pulse font-mono">Loading data...</td></tr>
                 ) : riwayat.length === 0 ? (
-                  <tr><td colSpan={4} className="p-10 text-center text-slate-400 italic">Riwayat masih kosong.</td></tr>
+                  <tr><td colSpan={5} className="p-20 text-center text-slate-500 italic">Belum ada riwayat pekerjaan selesai.</td></tr>
                 ) : (
                   riwayat.map((item) => (
-                    <tr key={item.nomor_antrean} className="hover:bg-slate-50 transition">
-                      <td className="p-4">
-                        <p className="font-bold text-slate-800">{item.Nama}</p>
-                        <p className="text-[10px] text-slate-500 font-mono">{item.whatsapp}</p>
+                    <tr key={item.nomor_antrean} className="hover:bg-slate-800/30 transition-colors">
+                      <td className="p-5">
+                        <p className="font-bold text-white">{item.Nama}</p>
+                        <p className="text-[10px] text-slate-500 font-mono mt-1 uppercase">{item.Tanggal}</p>
                       </td>
-                      <td className="p-4">
-                        <span className="text-[10px] bg-blue-50 text-blue-600 px-2 py-1 rounded font-bold uppercase">
+                      <td className="p-5">
+                        <span className="bg-slate-800 text-slate-400 border border-slate-700 px-2 py-0.5 rounded text-[10px] font-bold uppercase">
                           {item.Layanan}
                         </span>
                       </td>
-                      <td className="p-4 text-xs text-slate-600 italic max-w-xs truncate">
-                        {item.Alamat}
+                      <td className="p-5">
+                        <div className="bg-blue-950/20 border border-blue-900/30 p-3 rounded-lg max-w-[250px]">
+                          <p className="text-xs text-blue-400 leading-relaxed italic">
+                            "{item.deskripsi_hasil || 'Tidak ada catatan hasil kerja'}"
+                          </p>
+                        </div>
                       </td>
-                      <td className="p-4 text-center">
+                      <td className="p-5">
+                        <p className="text-xs font-bold text-green-500 mb-1">📱 {item.whatsapp}</p>
+                        <p className="text-[11px] text-slate-500 line-clamp-2 italic">{item.Alamat}</p>
+                      </td>
+                      <td className="p-5 text-center">
                         <button 
                           onClick={() => handleDelete(item.nomor_antrean, item.Nama)}
-                          className="bg-red-50 text-red-500 hover:bg-red-500 hover:text-white p-2 rounded-lg transition border border-red-100"
+                          className="text-slate-600 hover:text-red-500 transition-colors p-2"
                           title="Hapus permanen"
                         >
                           🗑️
@@ -146,11 +153,11 @@ export default function RiwayatPage() {
             </table>
           </div>
         </div>
-        
-        {/* FOOTER */}
-        <div className="mt-6 flex justify-between items-center text-[10px] text-slate-400 font-mono">
-          <p>PROTECTED BY SUPABASE AUTH</p>
-          <p>TOTAL RIWAYAT: {riwayat.length}</p>
+
+        {/* FOOTER INFO */}
+        <div className="mt-8 flex justify-between items-center text-[10px] text-slate-700 font-mono tracking-widest uppercase">
+          <p>Database Archive System</p>
+          <p>Total Arsip: {riwayat.length}</p>
         </div>
       </div>
     </main>
