@@ -9,7 +9,7 @@ export default function BookingPage() {
     { nama: "Tambah Freon", harga: 250000 },
     { nama: "Bongkar Pasang AC", harga: 250000 },
     { nama: "Periksa AC", harga: 100000 },
-    { nama: "Lainnya", harga: 0 }, // Harga 0 berarti nanti dicek di lokasi
+    { nama: "Lainnya...", harga: 0 }, // Harga 0 berarti nanti dicek di lokasi
   ];
 
   const [formData, setFormData] = useState({
