@@ -65,7 +65,7 @@ export default function BookingPage() {
         `*Tanggal:* ${formData.tanggal}%0A%0A` +
         `Mohon segera dikonfirmasi ya!`;
 
-      window.open(`https://wa.me/628123456789?text=${pesanWA}`, "_blank");
+      window.open(`https://wa.me/081953517111?text=${pesanWA}`, "_blank");
       alert("Booking Berhasil! Mengalihkan ke WhatsApp...");
     }
     setLoading(false);
